@@ -1,0 +1,4 @@
+neo4j
+groq
+python-dotenv
+streamlit
