@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smashing Bugs</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, "Segoe UI", sans-serif;
+      color: #202a35;
+      background: #f3f6f8;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; }
+    header {
+      padding: 24px max(24px, calc((100vw - 920px) / 2));
+      color: white;
+      background: #172c3c;
+      border-bottom: 4px solid #f3a738;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .mark {
+      display: grid; place-items: center; width: 42px; height: 42px;
+      color: #172c3c; background: #ffc15c; border-radius: 13px;
+      font-size: 23px; font-weight: 800;
+    }
+    h1 { margin: 0; font-size: 21px; letter-spacing: .2px; }
+    header p { margin: 5px 0 0; color: #c5d2db; font-size: 14px; }
+    main { width: min(920px, calc(100% - 32px)); margin: 38px auto 64px; }
+    .panel {
+      padding: 28px; background: white; border: 1px solid #e0e7ec;
+      border-radius: 18px; box-shadow: 0 12px 35px #20394d0c;
+    }
+    h2 { margin: 0 0 8px; font-size: 21px; }
+    .intro { margin: 0 0 22px; color: #647383; line-height: 1.55; }
+    label { display: block; margin-bottom: 9px; font-size: 14px; font-weight: 700; }
+    textarea {
+      width: 100%; min-height: 150px; resize: vertical; padding: 14px 15px;
+      border: 1px solid #cbd6de; border-radius: 11px; outline: none;
+      color: #202a35; font: inherit; line-height: 1.5;
+    }
+    textarea:focus { border-color: #198779; box-shadow: 0 0 0 3px #19877920; }
+    .actions { display: flex; align-items: center; gap: 14px; margin-top: 15px; }
+    button {
+      padding: 12px 18px; border: 0; border-radius: 10px; background: #147f73;
+      color: white; font: inherit; font-weight: 700; cursor: pointer;
+    }
+    button:hover { background: #10695f; }
+    button:disabled { opacity: .55; cursor: wait; }
+    #status { color: #647383; font-size: 14px; }
+    #error { margin-top: 18px; padding: 12px 14px; color: #8b2f27; background: #fff0ed; border-radius: 9px; }
+    #results { display: grid; gap: 16px; margin-top: 22px; }
+    .result-card { padding: 22px; background: white; border: 1px solid #e0e7ec; border-radius: 15px; }
+    .result-card h3 { margin: 0 0 12px; font-size: 16px; }
+    .labels { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .pill { padding: 6px 10px; color: #17685f; background: #e6f5f1; border-radius: 99px; font-size: 13px; }
+    .answer { margin: 0; white-space: pre-wrap; line-height: 1.65; }
+    .match { padding: 15px 0; border-top: 1px solid #e8edf0; }
+    .match:first-of-type { padding-top: 2px; border-top: 0; }
+    .match-title { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 7px; }
+    .match-title strong { color: #17685f; }
+    .tag { padding: 3px 8px; color: #526574; background: #edf1f4; border-radius: 99px; font-size: 12px; }
+    .match p { margin: 6px 0; color: #526171; line-height: 1.5; }
+    .fixes { margin: 8px 0 0; padding-left: 19px; }
+    .fixes li { margin: 7px 0; line-height: 1.45; }
+    [hidden] { display: none !important; }
+    @media (max-width: 600px) {
+      header { padding: 19px 18px; }
+      main { margin-top: 22px; }
+      .panel { padding: 21px 18px; }
+      .actions { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="mark" aria-hidden="true">S</div>
+      <div>
+        <h1>Smashing Bugs</h1>
+        <p>Find a fix that worked before.</p>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="panel">
+      <h2>What went wrong?</h2>
+      <p class="intro">Describe the bug in plain English. We’ll compare it with past issues and bring back any related fixes.</p>
+      <form id="bug-form">
+        <label for="description">Bug description</label>
+        <textarea id="description" name="description" required placeholder="Example: After resetting a password, signing in returns an HTTP 500 error. Other account pages still load normally."></textarea>
+        <div class="actions">
+          <button id="submit" type="submit">Find a past fix</button>
+          <span id="status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+    <div id="error" role="alert" hidden></div>
+    <section id="results" aria-live="polite" hidden></section>
+  </main>
+  <script>
+    const form = document.querySelector("#bug-form");
+    const button = document.querySelector("#submit");
+    const status = document.querySelector("#status");
+    const errorBox = document.querySelector("#error");
+    const results = document.querySelector("#results");
+
+    function element(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    function render(data) {
+      results.replaceChildren();
+      const summary = element("article", "result-card");
+      summary.append(element("h3", "", "Groq’s assessment"));
+      const labels = element("div", "labels");
+      labels.append(element("span", "pill", `Root cause: ${data.classification.root_cause || "not available"}`));
+      labels.append(element("span", "pill", `Technology: ${data.classification.technology || "not available"}`));
+      summary.append(labels, element("p", "answer", data.answer));
+      results.append(summary);
+
+      const history = element("article", "result-card");
+      history.append(element("h3", "", `Similar past bugs (${data.matches.length})`));
+      if (data.matches.length === 0) {
+        history.append(element("p", "intro", "No similar records with a saved fix matched this description."));
+      }
+      for (const match of data.matches) {
+        const card = element("div", "match");
+        const heading = element("div", "match-title");
+        heading.append(element("strong", "", match.similar_bug_id || "Past bug"));
+        heading.append(element("span", "tag", `Matched by ${match.reason.replaceAll("_", " ").toLowerCase()}`));
+        if (match.severity) heading.append(element("span", "tag", match.severity));
+        card.append(heading);
+        if (match.description) card.append(element("p", "", match.description));
+        const fixes = element("ul", "fixes");
+        for (const fix of match.available_fixes || []) {
+          const item = element("li", "");
+          item.append(element("strong", "", fix.name || "Recorded fix"));
+          if (fix.description) item.append(document.createTextNode(` — ${fix.description}`));
+          fixes.append(item);
+        }
+        if (fixes.childElementCount) card.append(fixes);
+        history.append(card);
+      }
+      results.append(history);
+      results.hidden = false;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const description = document.querySelector("#description").value.trim();
+      if (!description) return;
+      button.disabled = true;
+      errorBox.hidden = true;
+      results.hidden = true;
+      status.textContent = "Checking past bugs…";
+      try {
+        const response = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ description }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "The analysis failed.");
+        render(data);
+        status.textContent = "Analysis complete.";
+      } catch (error) {
+        errorBox.textContent = error.message;
+        errorBox.hidden = false;
+        status.textContent = "";
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

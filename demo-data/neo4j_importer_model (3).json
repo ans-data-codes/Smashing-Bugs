@@ -1,0 +1,765 @@
+{
+  "version": "1.4.0-beta.0",
+  "graph": {
+    "nodes": [
+      {
+        "id": "n0",
+        "position": {
+          "x": -155,
+          "y": -45
+        },
+        "caption": "Component"
+      },
+      {
+        "id": "n1",
+        "position": {
+          "x": 145,
+          "y": -45
+        },
+        "caption": "RootCause"
+      },
+      {
+        "id": "n2",
+        "position": {
+          "x": 445,
+          "y": -45
+        },
+        "caption": "Fix"
+      },
+      {
+        "id": "n3",
+        "position": {
+          "x": 38.90041007435593,
+          "y": 220
+        },
+        "caption": "Technology"
+      },
+      {
+        "id": "n4",
+        "position": {
+          "x": -155,
+          "y": 205
+        },
+        "caption": "Bug"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "n0",
+        "type": "AFFECTS",
+        "fromId": "n4",
+        "toId": "n0"
+      },
+      {
+        "id": "n1",
+        "type": "CAUSED_BY",
+        "fromId": "n4",
+        "toId": "n1"
+      },
+      {
+        "id": "n2",
+        "type": "RESOLVED_BY",
+        "fromId": "n4",
+        "toId": "n2"
+      },
+      {
+        "id": "n3",
+        "type": "USES",
+        "fromId": "n0",
+        "toId": "n3"
+      }
+    ]
+  },
+  "dataModel": {
+    "version": "1.4.0-beta.0",
+    "graphSchemaRepresentation": {
+      "version": "1.0.0",
+      "graphSchema": {
+        "nodeLabels": [
+          {
+            "$id": "nl:n0",
+            "token": "Component",
+            "properties": [
+              {
+                "$id": "p:1",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:2",
+                "token": "description",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              }
+            ]
+          },
+          {
+            "$id": "nl:n1",
+            "token": "RootCause",
+            "properties": [
+              {
+                "$id": "p:3",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:4",
+                "token": "description",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              }
+            ]
+          },
+          {
+            "$id": "nl:n2",
+            "token": "Fix",
+            "properties": [
+              {
+                "$id": "p:5",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:6",
+                "token": "description",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              }
+            ]
+          },
+          {
+            "$id": "nl:n3",
+            "token": "Technology",
+            "properties": [
+              {
+                "$id": "p:7",
+                "token": "name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:8",
+                "token": "description",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              }
+            ]
+          },
+          {
+            "$id": "nl:n4",
+            "token": "Bug",
+            "properties": [
+              {
+                "$id": "p:9",
+                "token": "id",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:10",
+                "token": "description",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:11",
+                "token": "severity",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:12",
+                "token": "status",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              }
+            ]
+          }
+        ],
+        "relationshipTypes": [
+          {
+            "$id": "rt:n0",
+            "token": "AFFECTS",
+            "properties": []
+          },
+          {
+            "$id": "rt:n1",
+            "token": "CAUSED_BY",
+            "properties": []
+          },
+          {
+            "$id": "rt:n2",
+            "token": "RESOLVED_BY",
+            "properties": []
+          },
+          {
+            "$id": "rt:n3",
+            "token": "USES",
+            "properties": []
+          }
+        ],
+        "nodeObjectTypes": [
+          {
+            "$id": "n:n0",
+            "labels": [
+              {
+                "$ref": "#nl:n0"
+              }
+            ]
+          },
+          {
+            "$id": "n:n1",
+            "labels": [
+              {
+                "$ref": "#nl:n1"
+              }
+            ]
+          },
+          {
+            "$id": "n:n2",
+            "labels": [
+              {
+                "$ref": "#nl:n2"
+              }
+            ]
+          },
+          {
+            "$id": "n:n3",
+            "labels": [
+              {
+                "$ref": "#nl:n3"
+              }
+            ]
+          },
+          {
+            "$id": "n:n4",
+            "labels": [
+              {
+                "$ref": "#nl:n4"
+              }
+            ]
+          }
+        ],
+        "relationshipObjectTypes": [
+          {
+            "$id": "r:n0",
+            "type": {
+              "$ref": "#rt:n0"
+            },
+            "from": {
+              "$ref": "#n:n4"
+            },
+            "to": {
+              "$ref": "#n:n0"
+            }
+          },
+          {
+            "$id": "r:n1",
+            "type": {
+              "$ref": "#rt:n1"
+            },
+            "from": {
+              "$ref": "#n:n4"
+            },
+            "to": {
+              "$ref": "#n:n1"
+            }
+          },
+          {
+            "$id": "r:n2",
+            "type": {
+              "$ref": "#rt:n2"
+            },
+            "from": {
+              "$ref": "#n:n4"
+            },
+            "to": {
+              "$ref": "#n:n2"
+            }
+          },
+          {
+            "$id": "r:n3",
+            "type": {
+              "$ref": "#rt:n3"
+            },
+            "from": {
+              "$ref": "#n:n0"
+            },
+            "to": {
+              "$ref": "#n:n3"
+            }
+          }
+        ],
+        "constraints": [
+          {
+            "$id": "c:1",
+            "name": "name_Technology_uniq",
+            "constraintType": "uniqueness",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n3"
+            },
+            "properties": [
+              {
+                "$ref": "#p:7"
+              }
+            ]
+          }
+        ],
+        "indexes": [
+          {
+            "$id": "i:1",
+            "name": "name_RootCause",
+            "indexType": "default",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n1"
+            },
+            "properties": [
+              {
+                "$ref": "#p:3"
+              }
+            ]
+          },
+          {
+            "$id": "i:2",
+            "name": "name_Fix",
+            "indexType": "default",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n2"
+            },
+            "properties": [
+              {
+                "$ref": "#p:5"
+              }
+            ]
+          },
+          {
+            "$id": "i:3",
+            "name": "name_Technology_uniq",
+            "indexType": "default",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n3"
+            },
+            "properties": [
+              {
+                "$ref": "#p:7"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "graphSchemaExtensionsRepresentation": {
+      "nodeKeyProperties": []
+    },
+    "graphMappingRepresentation": {
+      "dataSourceSchema": {
+        "type": "local/csv",
+        "tableSchemas": [
+          {
+            "$id": "t:1",
+            "name": "components.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "component_name",
+                "type": "string",
+                "sample": "Admired Component",
+                "include": true
+              },
+              {
+                "name": "component_description",
+                "type": "string",
+                "sample": "Acies cohibeo armarium cui verumtamen vulgivagus tantum arcesso abundans ager. Thema itaque conservo attollo alter vitium comitatus triumphus provident. Voro vulgaris atrocitas tepidus.",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:2",
+            "name": "root_causes.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "root_cause_name",
+                "type": "string",
+                "sample": "Pink RootCause",
+                "include": true
+              },
+              {
+                "name": "root_cause_description",
+                "type": "string",
+                "sample": "Sol benevolentia sponte virga. Accommodo architecto atavus in civis solutio conicio thesaurus tamisium. Ubi acsi solio videlicet atqui tristis arx tertius.",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:3",
+            "name": "fixes.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "fix_name",
+                "type": "string",
+                "sample": "Sneaky Fix",
+                "include": true
+              },
+              {
+                "name": "fix_description",
+                "type": "string",
+                "sample": "Colligo carus alo color suffoco temeritas laborum. Spiculum victus decet villa speciosus suppono curriculum vesco cruciamentum thalassinus. Teneo depulso caute.",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:4",
+            "name": "technologies.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "technology_name",
+                "type": "string",
+                "sample": "Red Technology",
+                "include": true
+              },
+              {
+                "name": "technology_description",
+                "type": "string",
+                "sample": "Appello crustulum arcesso. Trado arca articulus tertius. Cursim sulum teres veniam consectetur nobis.",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:5",
+            "name": "bugs.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "sample": "tMMQr7b8pF",
+                "include": true
+              },
+              {
+                "name": "bug_description",
+                "type": "string",
+                "sample": "Tamquam curo peccatus denique volaticus ceno desidero debeo accusamus. Auctus curvo arx tondeo communis defendo sed. Baiulus apud quis suggero derelinquo laudantium degenero cito porro.",
+                "include": true
+              },
+              {
+                "name": "severity",
+                "type": "string",
+                "sample": "Low",
+                "include": true
+              },
+              {
+                "name": "status",
+                "type": "string",
+                "sample": "Pending",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:6",
+            "name": "affects.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "component_name",
+                "type": "string",
+                "sample": "Shoddy Component",
+                "include": true
+              },
+              {
+                "name": "id",
+                "type": "string",
+                "sample": "xTTcNXTYlH",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:7",
+            "name": "caused_by.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "root_cause_name",
+                "type": "string",
+                "sample": "Unwilling RootCause",
+                "include": true
+              },
+              {
+                "name": "id",
+                "type": "string",
+                "sample": "N0O3DMj9BJ",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:8",
+            "name": "resolved_by.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "fix_name",
+                "type": "string",
+                "sample": "Negative Fix",
+                "include": true
+              },
+              {
+                "name": "id",
+                "type": "string",
+                "sample": "LlfQtRxY28",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:9",
+            "name": "uses.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "technology_name",
+                "type": "string",
+                "sample": "Free Technology",
+                "include": true
+              },
+              {
+                "name": "component_name",
+                "type": "string",
+                "sample": "Numb Component",
+                "include": true
+              }
+            ]
+          }
+        ]
+      },
+      "nodeMappings": [
+        {
+          "node": {
+            "$ref": "#n:n0"
+          },
+          "tableSchema": {
+            "$ref": "#t:1"
+          },
+          "propertyMappings": [
+            {
+              "fieldName": "component_name",
+              "property": {
+                "$ref": "#p:1"
+              }
+            },
+            {
+              "fieldName": "component_description",
+              "property": {
+                "$ref": "#p:2"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:n1"
+          },
+          "tableSchema": {
+            "$ref": "#t:2"
+          },
+          "propertyMappings": [
+            {
+              "fieldName": "root_cause_name",
+              "property": {
+                "$ref": "#p:3"
+              }
+            },
+            {
+              "fieldName": "root_cause_description",
+              "property": {
+                "$ref": "#p:4"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:n2"
+          },
+          "tableSchema": {
+            "$ref": "#t:3"
+          },
+          "propertyMappings": [
+            {
+              "fieldName": "fix_name",
+              "property": {
+                "$ref": "#p:5"
+              }
+            },
+            {
+              "fieldName": "fix_description",
+              "property": {
+                "$ref": "#p:6"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:n3"
+          },
+          "tableSchema": {
+            "$ref": "#t:4"
+          },
+          "propertyMappings": [
+            {
+              "fieldName": "technology_name",
+              "property": {
+                "$ref": "#p:7"
+              }
+            },
+            {
+              "fieldName": "technology_description",
+              "property": {
+                "$ref": "#p:8"
+              }
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:n4"
+          },
+          "tableSchema": {
+            "$ref": "#t:5"
+          },
+          "propertyMappings": [
+            {
+              "fieldName": "id",
+              "property": {
+                "$ref": "#p:9"
+              }
+            },
+            {
+              "fieldName": "bug_description",
+              "property": {
+                "$ref": "#p:10"
+              }
+            },
+            {
+              "fieldName": "severity",
+              "property": {
+                "$ref": "#p:11"
+              }
+            },
+            {
+              "fieldName": "status",
+              "property": {
+                "$ref": "#p:12"
+              }
+            }
+          ]
+        }
+      ],
+      "relationshipMappings": [
+        {
+          "relationship": {
+            "$ref": "#r:n0"
+          },
+          "tableSchema": {
+            "$ref": "#t:6"
+          },
+          "propertyMappings": [],
+          "fromMapping": {
+            "fieldName": "id"
+          },
+          "toMapping": {
+            "fieldName": "component_name"
+          }
+        },
+        {
+          "relationship": {
+            "$ref": "#r:n1"
+          },
+          "tableSchema": {
+            "$ref": "#t:7"
+          },
+          "propertyMappings": [],
+          "fromMapping": {
+            "fieldName": "id"
+          },
+          "toMapping": {
+            "fieldName": "root_cause_name"
+          }
+        },
+        {
+          "relationship": {
+            "$ref": "#r:n2"
+          },
+          "tableSchema": {
+            "$ref": "#t:8"
+          },
+          "propertyMappings": [],
+          "fromMapping": {
+            "fieldName": "id"
+          },
+          "toMapping": {
+            "fieldName": "fix_name"
+          }
+        },
+        {
+          "relationship": {
+            "$ref": "#r:n3"
+          },
+          "tableSchema": {
+            "$ref": "#t:9"
+          },
+          "propertyMappings": [],
+          "fromMapping": {
+            "fieldName": "component_name"
+          },
+          "toMapping": {
+            "fieldName": "technology_name"
+          }
+        }
+      ]
+    },
+    "configurations": {
+      "idsToIgnore": []
+    }
+  }
+}
